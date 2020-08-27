@@ -1,13 +1,14 @@
 import React from 'react';
 import {
   Dimensions,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+
 const headers = {
   Referer: 'https://hentaivn.net/',
 };
@@ -17,7 +18,15 @@ export const HomeItem = ({item}: any) => {
   return (
     <TouchableOpacity onPress={() => navigate('Detail', {slug: item.urlSlug})}>
       <View style={s.container}>
-        <Image style={s.img} source={{uri: item.url, headers: headers}} />
+        <FastImage
+          style={s.img}
+          source={{
+            uri: item.url,
+            headers: headers,
+            priority: FastImage.priority.high,
+            cache: FastImage.cacheControl.web,
+          }}
+        />
         <Text style={s.name}>{item.name}</Text>
         <Text>{item.chap}</Text>
       </View>
